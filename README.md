@@ -39,7 +39,13 @@ $$ p(x,z,c)=p(c)p(z \vert c)p(x \vert z,c) $$ with $$ c\in \{1...K \} $$
 
 
 
+# Illustrative results
 
+### MNIST
+<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_MNIST_interp.png" width="400">
+
+### Fashion MNISTR
+<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_inter_centroids.png" width="400">
 
 
 
