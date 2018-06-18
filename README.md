@@ -20,6 +20,9 @@ InfoCatVAE is a variational autoencoder framework that enables categorical and c
 Enforce categorical readable information in the latent code representation with the following categorical VAE (CatVAE):
 
 
-- Generative model: $$ p(x,z,c)=p(c)p(z \vert c)p(x \vert z,c) $$ with $$ c\in \{1...K \} $$
+- Generative model: 
+$$ 
+p(x,z,c)=p(c)p(z \vert c)p(x \vert z,c) $$ with $$ c\in \{1...K \} 
+$$
 - Inference model: $$ q_\phi (c \vert x) q_\phi (z, x,c) $$
 
