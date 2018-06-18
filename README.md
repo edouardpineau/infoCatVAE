@@ -13,12 +13,11 @@ InfoCatVAE is a variational autoencoder framework that enables categorical and c
 
 # Modification of VAEs for representation learning
 
-### Modifying VAEs for representation learning
-
-# Objective:
+#### Objective:
 
 Enforce categorical readable information in the latent code representation with the following categorical VAE (CatVAE):
 
+#### Modifications:
 
 - Generative model: 
 $$ p(x,z,c)=p(c)p(z \vert c)p(x \vert z,c) $$ with $$ c\in \{1...K \} $$
@@ -37,7 +36,7 @@ $$ p(x,z,c)=p(c)p(z \vert c)p(x \vert z,c) $$ with $$ c\in \{1...K \} $$
 
 
 
-
+# Choice of the prior
 
 # Illustrative results
 
