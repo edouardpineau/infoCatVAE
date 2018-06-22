@@ -1,3 +1,5 @@
+from utils import *
+
 class InfoCatConvVAE(nn.Module):
     def __init__(self, in_dim, num_class, sub_dim, z_dim, h_dim):
         super(InfoCatConvVAE, self).__init__()
