@@ -13,14 +13,14 @@ def KL_gaussian(mu1, mu2, logvar):
     return -0.5 * (1 + logvar - (mu1 - mu2).pow(2) - logvar.exp())
 
 
-def prior_construction(lmbda):
+def prior_construction(lmbda, is_cuda):
     muprior = np.zeros((z_dim, num_class))
 
     for i in range(num_class):
         for j in range(sub_dim):
             muprior[sub_dim * i + j, i] = lmbda
 
-    if args.cuda:
+    if is_cuda:
         mupriorT = Variable(torch.from_numpy(muprior).type(torch.FloatTensor)).cuda()
     else:
         mupriorT = Variable(torch.from_numpy(muprior).type(torch.FloatTensor))
@@ -42,9 +42,9 @@ def loss_function(recon_x, x, mu, logvar, a, allmu, allvar):
     return BCE + 100*negH + 100*KLD, BCE, negH, KLD, MSE
 
 
-def sampling(k):
+def sampling(k, is_cuda):
     allz = []
-    if args.cuda:
+    if is_cuda:
         for i in range(k):
             mu = torch.FloatTensor(muprior.T)
             logvar = torch.FloatTensor(np.zeros((num_class, model.z_dim)))
