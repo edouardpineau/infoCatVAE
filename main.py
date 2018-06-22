@@ -155,6 +155,6 @@ for epoch in range(1, n_epochs + 1):
 
     if epoch % 10 == 0:
         torch.save(model.state_dict(), '../InfoCatVAE' + str(epoch) + '.pt')
-        sample, labels = sampling(10)
+        sample, labels = sampling(model, 10, mupriorT)
         save_image(sample.view(10*num_class, 1, 28, 28).data,
                    '../InfoCatVAE' + str(epoch) + '.png', nrow=num_class)
