@@ -87,7 +87,7 @@ def train(epoch, model):
         np.mean(class_loss)))
 
 
-def test(epoch):
+def test(epoch, model):
     global test_lost_list
     model.eval()
     test_loss = 0
@@ -98,7 +98,7 @@ def test(epoch):
             data = data.cuda()
         recon_batch, mu, logvar, a, allmu, allvar = model(data)
         _, preds = torch.max(a, 1)
-        loss, la, lb, lc, mse_loss = loss_function(recon_batch, data, mu, logvar, a, allmu, allvar)
+        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch, data, a, allmu, allvar, mupriorT)
         test_loss += loss.data[0]
         if i == 0:
             n = min(data.size(0), 10)
@@ -147,8 +147,8 @@ if args.cuda:
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 for epoch in range(1, n_epochs + 1):
-    train(epoch)
-    test(epoch)
+    train(epoch, model)
+    test(epoch, model)
 
     if epoch % 10 == 0:
         torch.save(model.state_dict(), '../InfoCatVAE' + str(epoch) + '.pt')
