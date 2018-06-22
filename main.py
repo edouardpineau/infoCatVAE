@@ -36,6 +36,72 @@ test_loader = torch.utils.data.DataLoader(test_data,
 	
 	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ########## Model ##########
 
 loss_classifier = nn.NLLLoss()
