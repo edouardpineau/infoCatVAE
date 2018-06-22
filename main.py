@@ -142,6 +142,9 @@ model = InfoCatVAE(in_dim, num_class, sub_dim, z_dim, h_dim, lmbda, args.cuda)
 
 mupriorT = prior_construction(model)
 
+
+########## Learning ##########
+
 if args.cuda:
     model.cuda()
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
