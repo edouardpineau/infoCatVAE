@@ -43,7 +43,7 @@ def loss_function(model, recon_x, x, a, allmu, allvar, mupriorT):
 
     negH = torch.sum(a.mul(torch.log(a + 0.001)))
 
-    return BCE + 100*negH + 100*KLD, BCE, negH, KLD, MSE
+    return BCE + 10*negH + 10*KLD, BCE, negH, KLD, MSE
 
 
 def sampling(model, k, mupriorT):
