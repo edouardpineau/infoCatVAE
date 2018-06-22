@@ -1,7 +1,7 @@
 from utils import *
 
 class InfoCatVAE(nn.Module):
-    def __init__(self, in_dim, num_class, sub_dim, z_dim, h_dim):
+    def __init__(self, in_dim, num_class, sub_dim, z_dim, h_dim, is_cuda):
         super(InfoCatVAE, self).__init__()
 
         self.in_dim = in_dim
@@ -19,13 +19,15 @@ class InfoCatVAE(nn.Module):
 
         self.relu = nn.ReLU()
         self.sigmoid = nn.Sigmoid()
+        
+        self.is_cuda = is_cuda
 
     def encode(self, x):
         h1 = F.relu(F.dropout(self.fc1(x), p=0.25))
         a = F.softmax(self.fca(h1), dim=1)
         idt = torch.eye(self.num_class)
 
-        if args.cuda:
+        if self.is_cuda:
             allmu = torch.stack([self.fc21(torch.cat((h1, Variable(idt[i, :].repeat(h1.size(0), 1)).cuda()), 1))
                                  for i in range(self.num_class)])
             allvar = torch.stack([self.fc22(torch.cat((h1, Variable(idt[i, :].repeat(h1.size(0), 1)).cuda()), 1))
