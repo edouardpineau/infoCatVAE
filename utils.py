@@ -6,6 +6,8 @@ from torch import nn, optim
 from torch.autograd import Variable
 from torch.nn import functional as F
 from torchvision.utils import save_image
+from torchvision import datasets, transforms
+
 import numpy as np
 import pandas as pd
 
