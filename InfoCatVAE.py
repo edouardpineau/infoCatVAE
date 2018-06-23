@@ -1,6 +1,6 @@
 # https://github.com/pytorch/examples/blob/master/vae/main.py
 
-from d592151.infoCatVAE.utils import *
+from utils import *
 
 class InfoCatVAE(nn.Module):
     def __init__(self, in_dim, num_class, sub_dim, z_dim, h_dim, lmbda, is_cuda):
