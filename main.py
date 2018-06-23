@@ -53,7 +53,7 @@ def train(epoch, model):
     model.train()
     train_loss, train_reco_loss, train_negH, train_KLD = 0, 0, 0, 0
     class_loss = []
-    for batch_idx, data in enumerate(train_loader):
+    for batch_idx, (data,_) in enumerate(train_loader):
         data = Variable(data)
         if args.cuda:
             data = data.cuda()
@@ -102,7 +102,7 @@ def test(epoch, model):
     model.eval()
     test_loss = 0
 
-    for i, data in enumerate(test_loader):
+    for i, (data,_) in enumerate(test_loader):
         data = Variable(data, volatile=True)
         if args.cuda:
             data = data.cuda()
