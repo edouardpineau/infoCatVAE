@@ -61,8 +61,6 @@ def train(epoch, model):
         recon_batch, mu, logvar, a, allmu, allvar = model(data)
         loss, la, lb, lc, mse_loss = loss_function(model, recon_batch, data, a, allmu, allvar, mupriorT)
 
-        loss.backward(retain_graph=True)
-
         # Information maximisation part
 
         sample, labels = sampling(model, 10, mupriorT)
@@ -72,7 +70,7 @@ def train(epoch, model):
         _, _, a, _, _ = model.encode(sample)
         adv_loss = F.cross_entropy(a, labels)
 
-        adv_loss.backward()
+        (loss + 100*adv_loss).backward()
 
         train_loss += loss.data[0]
         train_reco_loss += la.data[0]
