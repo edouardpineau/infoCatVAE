@@ -28,6 +28,16 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 ########## Data ##########
 
+train_data = datasets.MNIST('./data', train=True, download=True,
+                   transform=transforms.Compose([
+                       transforms.ToTensor(),
+                   ]))
+
+test_data = datasets.MNIST('./data', train=False, download=True,
+                   transform=transforms.Compose([
+                       transforms.ToTensor(),
+                   ]))
+
 train_loader = torch.utils.data.DataLoader(train_data,
     batch_size=args.batch_size, shuffle=True, **kwargs)
 
