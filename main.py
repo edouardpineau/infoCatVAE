@@ -63,7 +63,7 @@ def train(epoch, model):
 
         loss.backward(retain_graph=True)
 
-        # Adversarial learning of classes
+        # Information maximisation part
 
         sample, labels = sampling(model, 10, mupriorT)
         if args.cuda:
