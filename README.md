@@ -37,7 +37,7 @@ This architecture offers a natural new ELBO that has the following propoerties:
 
 
 ### Three main contributions:
-- Choosing the form of the latent prior $$p(z,c)$$, then choosing p(c) and p(z|c)
+- Choosing the form of the latent prior p(z,c), then choosing p(c) and p(z|c)
 - Dealing with the impossibility to back-propagate the gradient through the categorical sampling layer
 - Keeping the generative power despite the structure of the latent space
 
