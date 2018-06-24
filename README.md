@@ -25,7 +25,7 @@ Enforce categorical readable information in the latent code representation with 
 
 max Epd(x) Eq(z|x) [log pθ(x|z)] − Eqφ(c|x) [KL (qφ(z|c, x)||p(z|c))] − KL (qφ(c|x)||p(c)
 
-<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/CatVAE_architecture.png" width="400">
+<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/CatVAE_architecture.png" width="1000">
 
 Figure 1: CatVAE: square blocks represent neural networks, oval-shaped blocks represent sampling
 
