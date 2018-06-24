@@ -1,4 +1,4 @@
-# infoCatVAE
+# InfoCatVAE
 
 This repository gives an implementation of InfoCatVAE.
 
