@@ -62,9 +62,21 @@ Objective: improve generation and regularize representation learning InfoCatVAE 
 
 The higher the mutual information between the sample and its category is, the better the generation should be
 
-<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_architecture.png" width="400">
+<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_architecture.png" width="1000">
 
 Figure 2: square blocks represent neural networks, oval-shaped blocks represent sam- pling. Encoding and decoding blocks are shared with CatVAE presented in figure 1.
+
+
+Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described by the figure 2. Main idea: each conditionally generated data should be classified in its original cluster. The mutual information lower bound term is added to the CatVAE ELBO.
+
+
+# Optimization with categorical sampling layer
+
+Objective: optimize the square blocks of the figure 1 and 2. No natural sampling optimization for categorical distributions. Usually, Jang's Gumbel-Softmax trick is used. We propose to use the information maximization brick as an alternative two-step method:
+
+- In the inference learning, no categorical sampling: for each x all qφ(c|x) are computed and two by two confronted
+- Categorical sampling in InfoCatVAE learning is done in the information maximization part
+
 
 # Illustrative results
 
