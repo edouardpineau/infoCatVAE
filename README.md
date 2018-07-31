@@ -41,7 +41,7 @@ This architecture offers a natural new ELBO that has the following propoerties:
 
 Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
 
-Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that {μc}^K_{c=1} ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose:
+Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose:
 
 \mu_c=\{\lambda.\mathds{1}_{j \in \llbracket {c\times \delta:(c+1) \times \delta} \llbracket} \}_{j=1}^{d}
 
@@ -84,12 +84,6 @@ It means that categorical representation is deterministic (catVAE) conditionally
 
 ### Fashion MNISTR
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_inter_centroids.png" width="400">
-
-
-
-
-
-
 
 
 
