@@ -41,13 +41,11 @@ This architecture offers a natural new ELBO that has the following propoerties:
 
 Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
 
-Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose:
-
-\mu_c=\{\lambda.\mathds{1}_{j \in \llbracket {c\times \delta:(c+1) \times \delta} \llbracket} \}_{j=1}^{d}
+Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose a μc such that:
 
 - Each categories lives mainly in a δ−dimensional subspace of Z
 - The categorical variable is modeled by p(c) = U({1...K})
-- This prior form encourage the network to find discriminative representation of the data according to its most salient attribute
+- This prior shape encourages the network to find discriminative representation of the data according to its most salient attribute
 
 
 # InfoCatVAE: categorical VAE with information maximization
