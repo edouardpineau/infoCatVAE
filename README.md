@@ -17,13 +17,7 @@ InfoCatVAE is a variational autoencoder framework that enables categorical and c
 
 Enforce categorical readable information in the latent code representation with the following categorical VAE (CatVAE):
 
-### New model and adapted ELBO
-
-- Generative model: p(x,c,z)=p(c)p(z|x)p(x|c,z)
-- Inference model: qφ(c|x)qφ(z, x, c)
-- New ELBO:
-
-max Epd(x) Eq(z|x) [log pθ(x|z)] − Eqφ(c|x) [KL (qφ(z|c, x)||p(z|c))] − KL (qφ(c|x)||p(c)
+### Mixture model
 
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/CatVAE_architecture.png" width="1000">
 
@@ -36,24 +30,24 @@ This architecture offers a natural new ELBO that has the following propoerties:
 - An entropy term prevents trivial solution where all datapoints are mapped to one cluster
 
 
-### Three main contributions:
-- Choosing the form of the latent prior p(z,c), then choosing p(c) and p(z|c)
-- Dealing with the impossibility to back-propagate the gradient through the categorical sampling layer
-- Keeping the generative power despite the structure of the latent space
+### Contributions:
+
+- Exploring how standard mixture models could be modified to overpass robustness by using fixed subspace-clustering-type of prior
+- Lowering the negative trade-off between expressiveness and robustness in mixture models by using information maximization trick and 
+- Leveraging information maximization architecture to enable to network to naturally optimize categorical sampling layer
 
 
 # Choice of the prior
 
 Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
 
-Assumption: data with K categories should be encoded with a K-modal distri- bution respectively modeled with N (z; μc, 1), with {μc}^K_{c=1} ∈ Rd and μc.μc′ = 0. We propose ∀c ∈ {1...K} we propose:
+Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that {μc}^K_{c=1} ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose:
 
 \mu_c=\{\lambda.\mathds{1}_{j \in \llbracket {c\times \delta:(c+1) \times \delta} \llbracket} \}_{j=1}^{d}
 
 - Each categories lives mainly in a δ−dimensional subspace of Z
 - The categorical variable is modeled by p(c) = U({1...K})
-- This prior form encourage the network to find discriminative representation of
-the data according to its most salient attribute, like a in a clustering framework
+- This prior form encourage the network to find discriminative representation of the data according to its most salient attribute
 
 
 # InfoCatVAE: categorical VAE with information maximization
@@ -67,15 +61,20 @@ The higher the mutual information between the sample and its category is, the be
 Figure 2: square blocks represent neural networks, oval-shaped blocks represent sam- pling. Encoding and decoding blocks are shared with CatVAE presented in figure 1.
 
 
-Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described by the figure 2. Main idea: each conditionally generated data should be classified in its original cluster. The mutual information lower bound term is added to the CatVAE ELBO.
+Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described by the figure 2. Main idea: each conditionally generated data should be classified in its original cluster. The mutual information lower bound term is added to the CatVAE ELBO. 
+
+This term is not arbitrary. With our particular form of prior, all clusters in InfoCatVAE are equidistant in term of euclidean norm, and orthogonal. This particular geometry imposes to propose a non-euclidean distance metric between our clusters. The node pair sampling ratio is a probabilistic symmetric and non-negative divergence between two distinct clusters, that we can adapt to our problem. It is shown that in InfoCatVAE we implicitely maximize pairwise cross entropy between distinct clusters (using samples from these clusters). Note that this is completely equivalent to say that information that defines a cluster should be as exclusive as possible to this cluster's samples: this is the intra-cluster information maximization.
 
 
 # Optimization with categorical sampling layer
 
-Objective: optimize the square blocks of the figure 1 and 2. No natural sampling optimization for categorical distributions. Usually, Jang's Gumbel-Softmax trick is used. We propose to use the information maximization brick as an alternative two-step method:
+Gumbel-softmax trick is a standard continuous relaxation for categorical sampling optimization. Several discrete optimization trick for back-propagating the gradient have been developped.
 
-- In the inference learning, no categorical sampling: for each x all qφ(c|x) are computed and two by two confronted
-- Categorical sampling in InfoCatVAE learning is done in the information maximization part
+In InfoCatVAE: 
+- Categorical representation is let deterministic instead of random: for each x all qφ(c|x) are computed and two by two confronted
+- The categorical sampling is made in parallel during optimization in the information maximization part
+
+It means that categorical representation is deterministic (catVAE) conditionally to the fact that representation is coherent when sampled randomly (infoCatVAE). It is a form of gradient-free (Monte-Carlo) optimization.
 
 
 # Illustrative results
