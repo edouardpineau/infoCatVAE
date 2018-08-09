@@ -1,5 +1,11 @@
 
 def train(epoch, model):
+    """
+    :param epoch: current epoch 
+    :param model: infoCatVAE model being trained
+    :param args: args associated to current infoCatVAE
+    :return: 
+    """
     model.train()
     train_loss, train_reco_loss, train_negH, train_KLD = 0, 0, 0, 0
     class_loss = []
@@ -47,6 +53,12 @@ def train(epoch, model):
 
 
 def test(epoch, model):
+    """
+    :param epoch: current epoch 
+    :param model: infoCatVAE model being trained
+    :param args: args associated to current infoCatVAE
+    :return: 
+    """
     global test_lost_list
     model.eval()
     test_loss = 0
