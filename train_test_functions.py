@@ -1,5 +1,6 @@
+from utils import *
 
-def train(epoch, model, train_loader, args):
+def train(epoch, model, train_loader, optimizer, args):
     """
     :param epoch: current epoch 
     :param model: infoCatVAE model being trained
