@@ -1,5 +1,5 @@
 
-def train(epoch, model):
+def train(epoch, model, train_loader, args):
     """
     :param epoch: current epoch 
     :param model: infoCatVAE model being trained
@@ -61,7 +61,7 @@ def train(epoch, model):
         np.mean(class_loss)))
 
 
-def test(epoch, model):
+def test(epoch, model, test_loader, args):
     """
     :param epoch: current epoch 
     :param model: infoCatVAE model being trained
