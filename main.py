@@ -80,8 +80,8 @@ if args.cuda:
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 for epoch in range(1, n_epochs + 1):
-    train(epoch, model)
-    test(epoch, model)
+    train(epoch, model, train_loader, args)
+    test(epoch, model, test_loader, args)
 
     if epoch % 10 == 0:
         torch.save(model.state_dict(), '../InfoCatVAE' + str(epoch) + '.pt')
