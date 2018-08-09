@@ -14,9 +14,13 @@ def train(epoch, model):
         if args.cuda:
             data = data.cuda()
         optimizer.zero_grad()
-        recon_batch, mu, logvar, a, allmu, allvar = model(data)
-        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
-                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
+        
+        # Categorical VAE part
+        
+        if args.is_convolutional:
+            recon_batch, mu, logvar, a, allmu, allvar = model(data.unsqueeze(1))
+        else:
+            recon_batch, mu, logvar, a, allmu, allvar = model(data)
 
         # Information maximisation part
 
@@ -25,6 +29,11 @@ def train(epoch, model):
             sample = sample.cuda()
             labels = labels.cuda()
         _, _, a, _, _ = model.encode(sample)
+        
+        # Loss computation + backpropagation
+        
+        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
+                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
         adv_loss = F.cross_entropy(a, labels)
 
         (loss + 100*adv_loss).backward()
@@ -67,7 +76,12 @@ def test(epoch, model):
         data = Variable(data, volatile=True)
         if args.cuda:
             data = data.cuda()
-        recon_batch, mu, logvar, a, allmu, allvar = model(data)
+        
+        if args.is_convolutional:
+            recon_batch, mu, logvar, a, allmu, allvar = model(data.unsqueeze(1))
+        else:
+            recon_batch, mu, logvar, a, allmu, allvar = model(data)
+            
         _, preds = torch.max(a, 1)
         loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
                                                    data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
