@@ -80,7 +80,7 @@ It means that categorical representation is deterministic (catVAE) conditionally
 ### MNIST
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_MNIST_interp.png" width="400">
 
-### Fashion MNISTR
+### Fashion MNIST
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_inter_centroids.png" width="400">
 
 
