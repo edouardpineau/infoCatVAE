@@ -66,7 +66,7 @@ test_class_perf = []
 test_lost_list = []
 
 model = InfoCatVAE(in_dim, num_class, sub_dim, z_dim, h_dim, lmbda, args.cuda)
-
+args.is_convolutional = False
 
 ########## Prior ##########
 
