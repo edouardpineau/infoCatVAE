@@ -59,7 +59,8 @@ def train(epoch, model):
             data = data.cuda()
         optimizer.zero_grad()
         recon_batch, mu, logvar, a, allmu, allvar = model(data)
-        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch, data, a, allmu, allvar, mupriorT)
+        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
+                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
 
         # Information maximisation part
 
@@ -106,7 +107,8 @@ def test(epoch, model):
             data = data.cuda()
         recon_batch, mu, logvar, a, allmu, allvar = model(data)
         _, preds = torch.max(a, 1)
-        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch, data, a, allmu, allvar, mupriorT)
+        loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
+                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
         test_loss += loss.data[0]
         if i == 0:
             n = min(data.size(0), 10)
