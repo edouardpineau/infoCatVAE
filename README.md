@@ -1,6 +1,6 @@
 # InfoCatVAE
 
-This repository gives an implementation of InfoCatVAE.
+This repository gives an implementation of InfoCatVAE: https://arxiv.org/pdf/1806.08240.pdf
 
 InfoCatVAE is a variational autoencoder framework that enables categorical and continuous interpretable representation with three main specifities:
 
