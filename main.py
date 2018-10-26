@@ -70,7 +70,7 @@ args.is_convolutional = False
 
 ########## Prior ##########
 
-mupriorT = prior_construction(model)
+args.mupriorT = prior_construction(model)
 
 
 ########## Learning ##########
