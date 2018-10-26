@@ -29,13 +29,13 @@ def train(epoch, model, train_loader, optimizer, args):
         if args.cuda:
             sample = sample.cuda()
             labels = labels.cuda()
-        _, _, a, _, _ = model.encode(sample)
+        _, _, a_sample, _, _ = model.encode(sample)
         
         # Loss computation + backpropagation
         
         loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
                                                    data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
-        adv_loss = F.cross_entropy(a, labels)
+        adv_loss = F.cross_entropy(a_sample, labels)
 
         (loss + 100*adv_loss).backward()
 
