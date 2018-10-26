@@ -25,7 +25,7 @@ def train(epoch, model, train_loader, optimizer, args):
 
         # Information maximisation part
 
-        sample, labels = sampling(model, 10, mupriorT)
+        sample, labels = sampling(model, 10, args.mupriorT)
         if args.cuda:
             sample = sample.cuda()
             labels = labels.cuda()
@@ -34,7 +34,7 @@ def train(epoch, model, train_loader, optimizer, args):
         # Loss computation + backpropagation
         
         loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
-                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
+                                                   data.view(data.size(0), -1), a, allmu, allvar, args.mupriorT)
         adv_loss = F.cross_entropy(a_sample, labels)
 
         (loss + 100*adv_loss).backward()
@@ -85,7 +85,7 @@ def test(epoch, model, test_loader, args):
             
         _, preds = torch.max(a, 1)
         loss, la, lb, lc, mse_loss = loss_function(model, recon_batch.view(recon_batch.size(0), -1),
-                                                   data.view(data.size(0), -1), a, allmu, allvar, mupriorT)
+                                                   data.view(data.size(0), -1), a, allmu, allvar, args.mupriorT)
         test_loss += loss.data[0]
         if i == 0:
             n = min(data.size(0), 10)
