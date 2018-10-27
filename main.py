@@ -3,7 +3,7 @@ from utils import *
 from train_test_functions import *
 
 
-########## Parameters ##########
+# ----- Parameters ----- #
 
 parser = argparse.ArgumentParser(description='GMSVAE MNIST Example')
 parser.add_argument('--batch-size', type=int, default=128, metavar='N',
@@ -27,7 +27,7 @@ if args.cuda:
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 
-########## Data ##########
+# ----- Data ----- #
 
 train_data = datasets.MNIST('./data', train=True, download=True,
                    transform=transforms.Compose([
@@ -46,7 +46,7 @@ test_loader = torch.utils.data.DataLoader(test_data,
     batch_size=args.batch_size, shuffle=True, **kwargs)
 	
 
-########## Model parameters ##########
+# ----- Model parameters ----- #
 
 loss_classifier = nn.NLLLoss()
 n_epochs = 5000
@@ -68,12 +68,12 @@ test_lost_list = []
 model = InfoCatVAE(in_dim, num_class, sub_dim, z_dim, h_dim, lmbda, args.cuda)
 args.is_convolutional = False
 
-########## Prior ##########
+# ----- Prior ----- #
 
 args.mupriorT = prior_construction(model)
 
 
-########## Learning ##########
+# ----- Learning ----- #
 
 if args.cuda:
     model.cuda()
