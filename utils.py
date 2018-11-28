@@ -36,7 +36,6 @@ def prior_construction(model):
 def loss_function(model, recon_x, x, a, allmu, allvar, mupriorT):
     BCE = F.binary_cross_entropy(recon_x, x, size_average=False)
     MSE = F.mse_loss(recon_x, x.view(-1, model.in_dim))
-    L1 = F.l1_loss(recon_x, x.view(-1, model.in_dim))
 
     KLD = 0
     for i in range(model.num_class):
