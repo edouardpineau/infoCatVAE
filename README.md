@@ -32,9 +32,8 @@ This architecture offers a natural new ELBO that has the following propoerties:
 
 ### Contributions:
 
-- Exploring how standard mixture models could be modified to overpass robustness by using fixed subspace-clustering-type of prior
-- Lowering the negative trade-off between expressiveness and robustness in mixture models by using information maximization trick and 
-- Leveraging information maximization architecture to enable to network to naturally optimize categorical sampling layer
+- Lowering the negative trade-off between expressiveness and robustness in mixture models by using information maximization trick 
+- Leveraging information maximization architecture to enable the network to naturally optimize categorical sampling layer
 
 
 # Choice of the prior
@@ -50,18 +49,16 @@ Assumption: data with K categories should be encoded with a K-modal distribution
 
 # InfoCatVAE: categorical VAE with information maximization
 
-Objective: improve generation and regularize representation learning InfoCatVAE uses learned classifier as to evaluate the quality of the generation:
+Objective: improve generation and regularize representation learning InfoCatVAE using the learned classifier, with the following idea:
 
-The higher the mutual information between the sample and its category is, the better the generation should be
+The higher the mutual information between the sample and its category, the better the generation should be
 
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_architecture.png" width="1000">
 
 Figure 2: square blocks represent neural networks, oval-shaped blocks represent sam- pling. Encoding and decoding blocks are shared with CatVAE presented in figure 1.
 
 
-Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described by the figure 2. Main idea: each conditionally generated data should be classified in its original cluster. The mutual information lower bound term is added to the CatVAE ELBO. 
-
-This term is not arbitrary. With our particular form of prior, all clusters in InfoCatVAE are equidistant in term of euclidean norm, and orthogonal. This particular geometry imposes to propose a non-euclidean distance metric between our clusters. The node pair sampling ratio is a probabilistic symmetric and non-negative divergence between two distinct clusters, that we can adapt to our problem. It is shown that in InfoCatVAE we implicitely maximize pairwise cross entropy between distinct clusters (using samples from these clusters). Note that this is completely equivalent to say that information that defines a cluster should be as exclusive as possible to this cluster's samples: this is the intra-cluster information maximization.
+Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described in figure 2. Main idea: each conditionally generated data should be classified in its original generative cluster. The mutual information lower bound term is added to the CatVAE ELBO. 
 
 
 # Optimization with categorical sampling layer
