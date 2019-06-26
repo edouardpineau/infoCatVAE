@@ -44,7 +44,7 @@ The higher the mutual information between the sample and its category, the bette
 
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_architecture.png" width="1000">
 
-Figure 2: square blocks represent neural networks, oval-shaped blocks represent sam- pling. Encoding and decoding blocks are shared with CatVAE presented in figure 1.
+Figure 2: square blocks represent neural networks, oval-shaped blocks represent sampling. Encoding and decoding blocks are shared with CatVAE presented in figure 1.
 
 
 Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described in figure 2. Main idea: each conditionally generated data should be classified in its original generative cluster. The mutual information lower bound term is added to the CatVAE ELBO. 
@@ -52,9 +52,11 @@ Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact 
 
 # Choice of the prior
 
-Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
+Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ. We chose a prior such that:
+- All clusters are equidistant and orthogonal in the latent space
+- Data with K categories should be encoded with a K-modal distribution 
 
-Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose a μc such that:
+Hence we model class c in the latent space with N(z; μc, 1) such that μc ∈ R^d and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose a μc such that:
 
 - Each categories lives mainly in a δ−dimensional subspace of Z
 - The categorical variable is modeled by p(c) = U({1...K})
