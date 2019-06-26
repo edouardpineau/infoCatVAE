@@ -11,13 +11,19 @@ InfoCatVAE is a variational autoencoder framework that enables categorical and c
   - improves conditional generation
   - gives a natural framework to overpass discrete sampling backpropagation problem
 
+#### Contributions:
+
+- Lowering the negative trade-off between expressiveness and robustness in mixture models by using information maximization trick 
+- Leveraging information maximization architecture to enable the network to naturally optimize categorical sampling layer
+
+
 # Modification of VAEs for representation learning
 
 #### Objective:
 
 Enforce categorical readable information in the latent code representation with the following categorical VAE (CatVAE):
 
-### Mixture model
+#### Mixture model
 
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/CatVAE_architecture.png" width="1000">
 
@@ -28,23 +34,6 @@ This architecture offers a natural new ELBO that has the following propoerties:
 - The mapping of a datapoint to a cluster is done with a softclutering framework
 - All the distances between the code and all clusters are explicitly computed and used in the backpropagation algorithm
 - An entropy term prevents trivial solution where all datapoints are mapped to one cluster
-
-
-### Contributions:
-
-- Lowering the negative trade-off between expressiveness and robustness in mixture models by using information maximization trick 
-- Leveraging information maximization architecture to enable the network to naturally optimize categorical sampling layer
-
-
-# Choice of the prior
-
-Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
-
-Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose a μc such that:
-
-- Each categories lives mainly in a δ−dimensional subspace of Z
-- The categorical variable is modeled by p(c) = U({1...K})
-- This prior shape encourages the network to find discriminative representation of the data according to its most salient attribute
 
 
 # InfoCatVAE: categorical VAE with information maximization
@@ -59,6 +48,17 @@ Figure 2: square blocks represent neural networks, oval-shaped blocks represent 
 
 
 Mutual information has a tractable lower bound (see Chen's InfoGAN) whose exact algorithmic transcription is described in figure 2. Main idea: each conditionally generated data should be classified in its original generative cluster. The mutual information lower bound term is added to the CatVAE ELBO. 
+
+
+# Choice of the prior
+
+Let d be the dimension of the latent space such that ∃ δ ∈ N s.t. d = K.δ.
+
+Assumption: data with K categories should be encoded with a K-modal distribution modeled with N (z; μc, 1) such that μc ∈ Rd and μc.μc′ = 0. We inspire from subspace clustering assumptions and propose ∀c ∈ {1...K} we propose a μc such that:
+
+- Each categories lives mainly in a δ−dimensional subspace of Z
+- The categorical variable is modeled by p(c) = U({1...K})
+- This prior shape encourages the network to find discriminative representation of the data according to its most salient attribute
 
 
 # Optimization with categorical sampling layer
