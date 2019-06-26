@@ -83,7 +83,7 @@ It means that categorical representation is deterministic (catVAE) conditionally
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_inter_centroids.png" width="400">
 
 ### Moving away from latent space origin along the subspace of each found class
-<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_inter_centroids.png" width="400">
+<img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_fashion_lambda.png" width="400">
 
 
 
