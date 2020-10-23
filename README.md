@@ -85,5 +85,12 @@ It means that categorical representation is deterministic (catVAE) conditionally
 ### Moving away from latent space origin along the subspace of each found class
 <img src="https://github.com/edouardpineau/infoCatVAE/raw/master/images/InfoCatVAE_fashion_lambda.png" width="400">
 
+# Citing
 
+    @article{pineau2018infocatvae,
+             title={InfoCatVAE: representation learning with categorical variational autoencoders},
+             author={Pineau, Edouard and Lelarge, Marc},
+             journal={arXiv preprint arXiv:1806.08240},
+             year={2018}
+    }
 
